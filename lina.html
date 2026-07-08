@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 8 Months, Lina 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #C0394B;
+    --blush: #F2A7B0;
+    --petal: #FDE8EC;
+    --deep: #7A1A28;
+    --cream: #FFF8F9;
+    --text: #3D1A20;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Floating petals */
+  .petals-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .petal {
+    position: absolute;
+    top: -40px;
+    font-size: 1.2rem;
+    animation: fall linear infinite;
+    opacity: 0.5;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-40px) rotate(0deg); opacity: 0.5; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* Main layout */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    text-align: center;
+  }
+
+  /* Header */
+  .tag {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 8vw, 3.4rem);
+    font-weight: 700;
+    color: var(--deep);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  h1 span {
+    color: var(--rose);
+    font-style: italic;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: #9A4A55;
+    margin-bottom: 48px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Photo grid */
+  .photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .photos .main-photo {
+    grid-column: 1 / -1;
+  }
+  .photo-slot {
+    background: var(--petal);
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--blush);
+    position: relative;
+    border: 2px solid var(--blush);
+  }
+  .photo-slot.main-photo {
+    aspect-ratio: 16/9;
+  }
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--blush);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .placeholder span { font-size: 1.8rem; }
+
+  /* Upload hint */
+  .upload-hint {
+    font-size: 0.75rem;
+    color: #B07080;
+    margin-top: -36px;
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 auto 48px;
+    max-width: 300px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--blush);
+  }
+  .divider-heart { color: var(--rose); font-size: 1.1rem; }
+
+  /* Button */
+  .btn-love {
+    background: linear-gradient(135deg, var(--rose), var(--deep));
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 18px 44px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(192, 57, 75, 0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+  .btn-love:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(192, 57, 75, 0.45);
+  }
+  .btn-love:active { transform: scale(0.97); }
+
+  /* Reason card */
+  .reason-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 4px 40px rgba(192, 57, 75, 0.1);
+    border: 1px solid #F5D0D7;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reason-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reason-number {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blush);
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .reason-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+    color: var(--deep);
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* Counter */
+  .counter {
+    font-size: 0.75rem;
+    color: #B07080;
+    letter-spacing: 0.1em;
+    margin-bottom: 60px;
+  }
+
+  /* Footer */
+  footer {
+    font-size: 0.75rem;
+    color: var(--blush);
+    letter-spacing: 0.08em;
+  }
+
+  /* Heart burst animation */
+  @keyframes heartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+  .btn-love.pop { animation: heartPop 0.3s ease; }
+</style>
+</head>
+<body>
+
+<div class="petals-bg" id="petals"></div>
+
+<div class="wrapper">
+  <p class="tag">Happy 8 Months!!</p>
+  <h1>Happy 8 Months,<br><span>Lina</span> 🌹</h1>
+
+
+  <!-- Photo slots — replace the src values with your image file names -->
+  <div class="photos">
+    <div class="photo-slot main-photo">
+      <img src="photo1.jpg" alt="us">
+    </div>
+    <div class="photo-slot">
+      <img src="photo2.jpg" alt="us">
+    </div>
+    <div class="photo-slot">
+      <img src="photo3.jpg" alt="us">
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-heart">♥</span></div>
+
+  <button class="btn-love" id="loveBtn" onclick="showReason()">
+    why I love you →
+  </button>
+
+  <div class="reason-card" id="reasonCard">
+    <p class="reason-number" id="reasonNumber"></p>
+    <p class="reason-text" id="reasonText"></p>
+  </div>
+
+  <p class="counter" id="counter" style="display:none"></p>
+
+  <div class="divider"><span class="divider-heart">♥</span></div>
+
+
+</div>
+
+<script>
+  // ── Falling petals ──────────────────────────────────────────────
+  const petalsBg = document.getElementById('petals');
+  const petalEmojis = ['🌸','🌹','❤️','🌷','💕','✨'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
+    petalsBg.appendChild(p);
+  }
+
+  // ── Reasons ─────────────────────────────────────────────────────
+  const reasons = [
+    "You're the most beautiful person I've ever seen.",
+    "Your laugh makes everything better.",
+    "You're so incredibly smart.",
+    "The way you care about people is rare.",
+    "You make ordinary moments feel magical.",
+    "Your kindness is one of a kind.",
+    "You challenge me to be a better person.",
+    "The way you smile at me still makes my heart race.",
+    "You're my favorite person to talk to.",
+    "You understand me like nobody else does.",
+    "Your eyes tell a thousand stories.",
+    "You make me feel safe.",
+    "The little things you do mean everything.",
+    "You're stronger than you know.",
+    "Being with you feels like coming home.",
+    "You make me laugh every single day.",
+    "Your passion for life is contagious.",
+    "You're patient in ways I admire deeply.",
+    "You see the good in everyone.",
+    "Eight months with you feels like forever and not enough.",
+    "You're the person I want to tell everything to.",
+    "The world is better because you're in it.",
+    "Your voice is my favorite sound.",
+    "You inspire me without even trying.",
+    "I fall for you a little more every day.",
+    "You're my calm in every storm.",
+    "You love deeply and that's beautiful.",
+    "Time with you is never enough.",
+    "You make me want to be everything I can be.",
+    "You're endlessly, completely worth it.",
+  ];
+
+  // shuffle once so order feels random every load
+  for (let i = reasons.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [reasons[i], reasons[j]] = [reasons[j], reasons[i]];
+  }
+
+  let clickCount = 0;
+  const card = document.getElementById('reasonCard');
+  const reasonText = document.getElementById('reasonText');
+  const reasonNumber = document.getElementById('reasonNumber');
+  const counter = document.getElementById('counter');
+  const btn = document.getElementById('loveBtn');
+
+  function showReason() {
+    clickCount++;
+    const reason = reasons[(clickCount - 1) % reasons.length];
+
+    card.classList.remove('visible');
+    void card.offsetWidth; // reflow to re-trigger transition
+    reasonNumber.textContent = 'reason ' + clickCount;
+    reasonText.textContent = reason;
+    card.classList.add('visible');
+
+    counter.style.display = 'block';
+    counter.textContent = clickCount + ' reason' + (clickCount === 1 ? '' : 's') + ' and counting ♥';
+
+    btn.classList.remove('pop');
+    void btn.offsetWidth;
+    btn.classList.add('pop');
+  }
+</script>
+</body>
+</html>
